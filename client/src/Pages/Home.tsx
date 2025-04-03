@@ -1,8 +1,13 @@
 import { useState } from 'react';
+import { useUser } from '../components/UseUser';
+import { useNavigate } from 'react-router-dom';
 
 export function Home() {
+  const { handleSignOut } = useUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [popUp, setPopUp] = useState(false);
+
+  const navigate = useNavigate();
 
   const handlePopUp = () => setPopUp(true);
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
@@ -61,7 +66,12 @@ export function Home() {
             <h3 className="md:text-6xl text-5xl font-bold mb-5 mt-5 text-black">
               Log Out?
             </h3>
-            <button className="md:text-5xl md:px-20 mt-6 px-18 text-4xl font-bold py-2 px-12 bg-[#067E81] text-black border border-black rounded-full">
+            <button
+              className="md:text-5xl md:px-20 mt-6 px-18 text-4xl font-bold py-2 px-12 bg-[#067E81] text-black border border-black rounded-full"
+              onClick={() => {
+                handleSignOut();
+                navigate('/sign-up');
+              }}>
               YES
             </button>
             <button className="md:text-5xl md:px-20 mt-6 px-18 text-4xl font-bold py-2 px-14 ml-4 bg-[#696969] text-black border border-black rounded-full">
