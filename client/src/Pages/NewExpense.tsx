@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export function NewExpense() {
   const [expenseName, setExpenseName] = useState('');
   const [amount, setAmount] = useState('');
+  const [dueDate, setDueDate] = useState('');
 
   const { handleSignOut } = useUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -142,6 +143,23 @@ export function NewExpense() {
             className="ml-1 text-xl md:text-3xl text-black"
             style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
             Due Date
+          </span>
+          <input
+            required
+            name="Due Date"
+            placeholder="MM/DD/YYYY"
+            type="text"
+            value={dueDate}
+            onChange={(e) => setDueDate(e.target.value)}
+            className="mt-1 text-l md:text-xl block border border-gray-600 rounded p-2 h-9 md:h-10 w-full"
+          />
+        </label>
+
+        <label className="block mt-6">
+          <span
+            className="ml-1 text-2xl md:text-4xl text-black"
+            style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
+            Schedule
           </span>
         </label>
       </form>
