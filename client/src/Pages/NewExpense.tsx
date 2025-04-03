@@ -81,9 +81,7 @@ export function NewExpense() {
               </h3>
               <button
                 className="md:text-5xl md:px-20 mt-6 px-18 text-4xl font-bold py-2 px-12 bg-[#067E81] text-black border border-black rounded-full"
-                onClick={() => {
-                  navigate('/new-expense');
-                }}>
+                onClick={closeExpense}>
                 YES
               </button>
               <button
@@ -244,6 +242,14 @@ export function NewExpense() {
               Every Year
             </span>
           </label>
+        </div>
+
+        <div className="flex justify-center md:mt-1">
+          <button
+            className=" drop-shadow-xl mt-6 px-[65px] md:px-[275px] mr-1 ml-2 text-4xl md:text-5xl font-bold py-1 md:py-2 px-12 bg-[#067E81] text-black border rounded-3xl"
+            style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
+            Save
+          </button>
         </div>
       </form>
 
