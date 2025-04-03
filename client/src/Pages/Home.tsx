@@ -76,7 +76,11 @@ export function Home() {
                 Add New <br />
                 Expense?
               </h3>
-              <button className="md:text-5xl md:px-20 mt-6 px-18 text-4xl font-bold py-2 px-12 bg-[#067E81] text-black border border-black rounded-full">
+              <button
+                className="md:text-5xl md:px-20 mt-6 px-18 text-4xl font-bold py-2 px-12 bg-[#067E81] text-black border border-black rounded-full"
+                onClick={() => {
+                  navigate('/new-expense');
+                }}>
                 YES
               </button>
               <button
