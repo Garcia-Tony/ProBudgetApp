@@ -12,6 +12,7 @@ export function NewExpense() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [popUp, setPopUp] = useState(false);
   const [expense, setExpense] = useState(false);
+  const [, setCancel] = useState(false);
 
   const navigate = useNavigate();
 
@@ -20,6 +21,7 @@ export function NewExpense() {
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const handleExpense = () => setExpense(true);
   const closeExpense = () => setExpense(false);
+  const closeCancel = () => setCancel(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -249,6 +251,15 @@ export function NewExpense() {
             className=" drop-shadow-xl mt-6 px-[65px] md:px-[275px] mr-1 ml-2 text-4xl md:text-5xl font-bold py-1 md:py-2 px-12 bg-[#067E81] text-black border rounded-3xl"
             style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
             Save
+          </button>
+          <button
+            className=" drop-shadow-xl mt-6 px-[50px] md:px-[275px] ml-6 text-4xl font-bold py-1 md:py-2 md:text-5xl px-12 bg-[#696969] text-black border rounded-3xl"
+            style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}
+            onClick={() => {
+              closeCancel();
+              navigate('/home');
+            }}>
+            Cancel
           </button>
         </div>
       </form>
