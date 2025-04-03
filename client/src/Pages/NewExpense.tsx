@@ -118,6 +118,14 @@ export function NewExpense() {
             className="mt-1 text-l md:text-xl block border border-gray-600 rounded p-2 h-9 md:h-10 w-full"
           />
         </label>
+
+        <label className="block mt-3">
+          <span
+            className="ml-1 text-xl md:text-3xl text-black"
+            style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
+            Amount
+          </span>
+        </label>
       </form>
 
       {isMenuOpen && (
