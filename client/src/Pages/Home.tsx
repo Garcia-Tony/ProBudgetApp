@@ -2,7 +2,9 @@ import { useState } from 'react';
 
 export function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [popUp, setPopUp] = useState(false);
 
+  const handlePopUp = () => setPopUp(true);
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
   return (
@@ -45,9 +47,27 @@ export function Home() {
             Menu
           </h2>
 
-          <button className="md:text-4xl md:px-28 md:ml-[25px] text-2xl block text-center border border-[#01898B] rounded-full py-1 px-[55px] ml-3 mt-10 bg-[#01898B] text-white  hover:bg-[#016B6D] transition">
+          <button
+            className="md:text-4xl md:px-28 md:ml-[25px] text-2xl block text-center border border-[#01898B] rounded-full py-1 px-[55px] ml-3 mt-10 bg-[#01898B] text-white  hover:bg-[#016B6D] transition"
+            onClick={handlePopUp}>
             Log Out
           </button>
+        </div>
+      )}
+
+      {popUp && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-10">
+          <div className="md:px-12 rounded-[50px] bg-[#cbcbcb] p-7 rounded shadow-lg text-center border border-black ">
+            <h3 className="md:text-6xl text-5xl font-bold mb-5 mt-5 text-black">
+              Log Out?
+            </h3>
+            <button className="md:text-5xl md:px-20 mt-6 px-18 text-4xl font-bold py-2 px-12 bg-[#067E81] text-black border border-black rounded-full">
+              YES
+            </button>
+            <button className="md:text-5xl md:px-20 mt-6 px-18 text-4xl font-bold py-2 px-14 ml-4 bg-[#696969] text-black border border-black rounded-full">
+              NO
+            </button>
+          </div>
         </div>
       )}
     </div>
