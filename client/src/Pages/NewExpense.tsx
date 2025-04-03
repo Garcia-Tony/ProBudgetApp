@@ -6,6 +6,7 @@ export function NewExpense() {
   const [expenseName, setExpenseName] = useState('');
   const [amount, setAmount] = useState('');
   const [dueDate, setDueDate] = useState('');
+  const [, setSchedule] = useState('');
 
   const { handleSignOut } = useUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -162,6 +163,88 @@ export function NewExpense() {
             Schedule
           </span>
         </label>
+
+        <div className=" flex flex-col md:flex-row md:space-x-36 md:text-2xl md:items-center mt-2 pt-2 bg-[#E1E0E0] rounded-lg shadow-md shadow-gray-500 p-2">
+          <label className="mt-[-2px] md:mt-1 md:mb-1 flex items-center space-x-2">
+            <input
+              type="radio"
+              name="Schedule"
+              value="every-week"
+              className="form-radio text-[#01898B] md:w-4 md:h-4"
+              required
+              onChange={(e) => setSchedule(e.target.value)}
+            />
+            <span
+              className="text-l md:text-2xl"
+              style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
+              Every Week
+            </span>
+          </label>
+
+          <label className="mt-1 flex items-center space-x-2">
+            <input
+              type="radio"
+              name="Schedule"
+              value="every-month"
+              className="form-radio text-[#01898B] md:w-4 md:h-4"
+              required
+              onChange={(e) => setSchedule(e.target.value)}
+            />
+            <span
+              className="text-l md:text-2xl"
+              style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
+              Every Month
+            </span>
+          </label>
+
+          <label className="mt-1 flex items-center space-x-2">
+            <input
+              type="radio"
+              name="Schedule"
+              value="every-3-months"
+              className="form-radio text-[#01898B] md:w-4 md:h-4"
+              required
+              onChange={(e) => setSchedule(e.target.value)}
+            />
+            <span
+              className="text-l md:text-2xl"
+              style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
+              Every 3 Months
+            </span>
+          </label>
+
+          <label className="mt-1 flex items-center space-x-2">
+            <input
+              type="radio"
+              name="Schedule"
+              value="every-6-months"
+              className="form-radio text-[#01898B] md:w-4 md:h-4"
+              required
+              onChange={(e) => setSchedule(e.target.value)}
+            />
+            <span
+              className="text-l md:text-2xl"
+              style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
+              Every 6 Months
+            </span>
+          </label>
+
+          <label className="mt-1 flex items-center space-x-2">
+            <input
+              type="radio"
+              name="Schedule"
+              value="every-year"
+              className="form-radio text-[#01898B] md:w-4 md:h-4"
+              required
+              onChange={(e) => setSchedule(e.target.value)}
+            />
+            <span
+              className="text-l md:text-2xl"
+              style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
+              Every Year
+            </span>
+          </label>
+        </div>
       </form>
 
       {isMenuOpen && (
