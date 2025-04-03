@@ -91,7 +91,7 @@ export function SignInForm() {
         </button>
       </form>
       <p className="text-xl mt-8 text-white md:text-2xl">
-        Don't have an account?{' '}
+        Don't have an account?
         <span
           className="md:text-2xl text-xl text-black cursor-pointer underline hover:text-[#00C3C9] transition"
           onClick={() => navigate('/sign-up')}>
