@@ -10,6 +10,7 @@ export function Home() {
   const navigate = useNavigate();
 
   const handlePopUp = () => setPopUp(true);
+  const closePopUp = () => setPopUp(false);
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
   return (
@@ -74,7 +75,9 @@ export function Home() {
               }}>
               YES
             </button>
-            <button className="md:text-5xl md:px-20 mt-6 px-18 text-4xl font-bold py-2 px-14 ml-4 bg-[#696969] text-black border border-black rounded-full">
+            <button
+              className="md:text-5xl md:px-20 mt-6 px-18 text-4xl font-bold py-2 px-14 ml-4 bg-[#696969] text-black border border-black rounded-full"
+              onClick={closePopUp}>
               NO
             </button>
           </div>
