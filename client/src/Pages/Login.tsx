@@ -58,8 +58,7 @@ export function SignInForm() {
         <div className="mb-1 md:flex justify-center">
           <label className="mb-1 block">
             <span className="md:text-3xl underline text-2xl text-white">
-              {' '}
-              Username{' '}
+              Username
             </span>
             <input
               required
