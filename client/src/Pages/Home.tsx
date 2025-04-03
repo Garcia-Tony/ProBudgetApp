@@ -28,6 +28,12 @@ export function Home() {
             />
           </svg>
         </button>
+
+        <img
+          src="/ProBudget.png"
+          alt="Pro Budget Logo"
+          className="size-14 max-w-[60px] max-h-[60px] mt-5 md:size-20 md:mt-4 md:max-w-[150px] md:max-h-[150px]"
+        />
       </div>
 
       {isMenuOpen && (
