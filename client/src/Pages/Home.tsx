@@ -34,6 +34,12 @@ export function Home() {
           alt="Pro Budget Logo"
           className="size-14 max-w-[60px] max-h-[60px] mt-5 md:size-20 md:mt-4 md:max-w-[150px] md:max-h-[150px]"
         />
+
+        <div className="flex w-full justify-center md:mt-4">
+          <h2 className="md:text-6xl text-4xl font-bold text-black ml-7 mr-40 mt-4 md:mb-4 ">
+            Expenses
+          </h2>
+        </div>
       </div>
 
       {isMenuOpen && (
