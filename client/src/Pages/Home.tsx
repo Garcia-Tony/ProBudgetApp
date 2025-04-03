@@ -6,12 +6,14 @@ export function Home() {
   const { handleSignOut } = useUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [popUp, setPopUp] = useState(false);
+  const [expense, setExpense] = useState(false);
 
   const navigate = useNavigate();
 
   const handlePopUp = () => setPopUp(true);
   const closePopUp = () => setPopUp(false);
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+  const handleExpense = () => setExpense(true);
 
   return (
     <div className="relative flex-grow flex-1 pl-2 px-4">
@@ -40,6 +42,37 @@ export function Home() {
             Expenses
           </h2>
         </div>
+      </div>
+
+      <div className="absolute right-4 md:right-6 md:top-3 top-2 md:top-[22px]">
+        <button onClick={handleExpense}>
+          <svg
+            className="mt-4 w-12 h-12 md:w-[60px] md:h-[60px] md:mt-[14px] text-[#01898B]"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M8 12H12M16 12H12M12 12V8M12 12V16"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+
+        {expense && (
+          <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-10">
+            <div className="rounded-[50px] bg-[#cbcbcb] p-6 px-6 rounded shadow-lg text-center border border-black "></div>
+          </div>
+        )}
       </div>
 
       <hr className="my-4 border-t-2 border-[#01898B] md:mt-4" />
