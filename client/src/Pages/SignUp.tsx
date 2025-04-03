@@ -41,6 +41,9 @@ export function RegistrationForm() {
         className="md:justify-center md:w-36 md:mb-8 w-32 mb-4"
       />
       <form onSubmit={handleSubmit} className="w-full max-w-sm">
+        <h2 className=" text-6xl text-black font-bold text-center mb-6 md:text-7xl">
+          Sign Up
+        </h2>
         <div className="mb-1 md:flex justify-center">
           <label className="mb-1 block">
             <span className="md:text-3xl underline text-2xl text-white">
