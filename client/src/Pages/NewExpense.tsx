@@ -16,6 +16,10 @@ export function NewExpense() {
   const handleExpense = () => setExpense(true);
   const closeExpense = () => setExpense(false);
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="relative flex-grow flex-1 pl-2 px-4">
       <div className="flex items-center space-x-4">
@@ -94,6 +98,16 @@ export function NewExpense() {
         style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
         New Expense
       </h2>
+
+      <form onSubmit={handleSubmit}>
+        <label className="block">
+          <span
+            className="ml-1 text-2xl md:text-4xl text-black"
+            style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
+            Expense{' '}
+          </span>
+        </label>
+      </form>
 
       {isMenuOpen && (
         <div
