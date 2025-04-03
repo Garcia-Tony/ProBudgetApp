@@ -44,6 +44,10 @@ export function Home() {
 
       <hr className="my-4 border-t-2 border-[#01898B] md:mt-4" />
 
+      <p className=" text-2xl text-black ml-2 md:text-3xl">
+        No Current Expenses
+      </p>
+
       {isMenuOpen && (
         <div
           className={`absolute top-0 left-0 h-screen w-64 bg-white shadow-md border transition-all transform ease-in-out
