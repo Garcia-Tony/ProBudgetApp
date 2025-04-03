@@ -1,6 +1,11 @@
 export function RegistrationForm() {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-[#13878B]">
+      <img
+        src="/ProBudget.png"
+        alt="ProBudget Logo"
+        className="md:justify-center md:w-36 md:mb-8 w-32 mb-4"
+      />
       <div className="mb-1 md:flex justify-center">
         <label className="mb-1 block">
           <span className="md:text-3xl underline text-2xl text-white">
