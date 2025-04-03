@@ -1,4 +1,8 @@
+import { useNavigate } from 'react-router-dom';
+
 export function RegistrationForm() {
+  const navigate = useNavigate();
+
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-[#13878B]">
       <img
@@ -38,6 +42,14 @@ export function RegistrationForm() {
       <button className="md:mt-8 md:md:flex justify-center text-2xl px-20 md:px-28 lg:px-36 text-center border rounded-full py-3 bg-white text-black mt-12 mx-auto block hover:bg-gray-200 transition">
         Sign Up
       </button>
+      <p className="text-xl mt-8 text-white md:text-2xl">
+        Already have an account?{' '}
+        <span
+          className="md:text-2xl text-xl text-black cursor-pointer underline hover:text-[#00C3C9] transition"
+          onClick={() => navigate('/log-in')}>
+          Login
+        </span>
+      </p>
     </div>
   );
 }
