@@ -70,7 +70,18 @@ export function Home() {
 
         {expense && (
           <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-10">
-            <div className="rounded-[50px] bg-[#cbcbcb] p-6 px-6 rounded shadow-lg text-center border border-black "></div>
+            <div className="rounded-[50px] bg-[#cbcbcb] p-6 px-6 rounded shadow-lg text-center border border-black ">
+              <h3 className="md:text-6xl text-5xl font-bold mb-5 mt-5 text-black font-extrabold">
+                Add New <br />
+                Expense?
+              </h3>
+              <button className="md:text-5xl md:px-20 mt-6 px-18 text-4xl font-bold py-2 px-12 bg-[#067E81] text-black border border-black rounded-full">
+                YES
+              </button>
+              <button className="md:text-5xl md:px-20 mt-6 px-18 text-4xl font-bold py-2 px-14 ml-4 bg-[#696969] text-black border border-black rounded-full">
+                NO
+              </button>
+            </div>
           </div>
         )}
       </div>
