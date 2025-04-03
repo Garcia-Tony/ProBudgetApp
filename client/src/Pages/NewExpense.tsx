@@ -89,6 +89,12 @@ export function NewExpense() {
 
       <hr className="my-4 border-t-2 border-[#01898B] md:mt-4" />
 
+      <h2
+        className="text-5xl md:text-6xl text-center"
+        style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
+        New Expense
+      </h2>
+
       {isMenuOpen && (
         <div
           className={`absolute top-0 left-0 h-screen w-64 bg-white shadow-md border transition-all transform ease-in-out
