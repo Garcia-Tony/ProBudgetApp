@@ -27,7 +27,6 @@ export function Home() {
           className={`absolute top-0 left-0 h-screen w-64 bg-white shadow-md border transition-all transform ease-in-out
   ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}
   shadow-lg shadow-black md:w-1/2`}>
-          {' '}
           <button
             className="flex justify-center w-full mb-2"
             onClick={toggleMenu}>
@@ -41,6 +40,9 @@ export function Home() {
               />
             </svg>
           </button>
+          <h2 className="text-4xl ml-3 text-[#01898B] font-bold mt-8 md:text-5xl md:ml-[25px]">
+            Menu
+          </h2>
         </div>
       )}
     </div>
