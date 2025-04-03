@@ -14,6 +14,7 @@ export function Home() {
   const closePopUp = () => setPopUp(false);
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const handleExpense = () => setExpense(true);
+  const closeExpense = () => setExpense(false);
 
   return (
     <div className="relative flex-grow flex-1 pl-2 px-4">
@@ -78,7 +79,9 @@ export function Home() {
               <button className="md:text-5xl md:px-20 mt-6 px-18 text-4xl font-bold py-2 px-12 bg-[#067E81] text-black border border-black rounded-full">
                 YES
               </button>
-              <button className="md:text-5xl md:px-20 mt-6 px-18 text-4xl font-bold py-2 px-14 ml-4 bg-[#696969] text-black border border-black rounded-full">
+              <button
+                className="md:text-5xl md:px-20 mt-6 px-18 text-4xl font-bold py-2 px-14 ml-4 bg-[#696969] text-black border border-black rounded-full"
+                onClick={closeExpense}>
                 NO
               </button>
             </div>
