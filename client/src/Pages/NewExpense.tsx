@@ -3,6 +3,8 @@ import { useUser } from '../components/UseUser';
 import { useNavigate } from 'react-router-dom';
 
 export function NewExpense() {
+  const [expenseName, setExpenseName] = useState('');
+
   const { handleSignOut } = useUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [popUp, setPopUp] = useState(false);
@@ -104,8 +106,17 @@ export function NewExpense() {
           <span
             className="ml-1 text-2xl md:text-4xl text-black"
             style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
-            Expense{' '}
+            Expense
           </span>
+          <input
+            required
+            name="Expense"
+            placeholder="Expense Name"
+            type="text"
+            value={expenseName}
+            onChange={(e) => setExpenseName(e.target.value)}
+            className="mt-1 text-l md:text-xl block border border-gray-600 rounded p-2 h-9 md:h-10 w-full"
+          />
         </label>
       </form>
 
