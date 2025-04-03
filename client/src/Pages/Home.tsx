@@ -48,6 +48,12 @@ export function Home() {
         No Current Expenses
       </p>
 
+      <div className="space-y-3 mt-4 px-[5px]">
+        <div className="h-16 bg-[#EFEFEF] rounded-lg shadow-md shadow-[#00000099] border"></div>
+        <div className="h-16 bg-[#EFEFEF] rounded-lg shadow-md shadow-[#00000099]"></div>
+        <div className="h-16 bg-[#EFEFEF] rounded-lg shadow-md shadow-[#00000099]"></div>
+      </div>
+
       {isMenuOpen && (
         <div
           className={`absolute top-0 left-0 h-screen w-64 bg-white shadow-md border transition-all transform ease-in-out
