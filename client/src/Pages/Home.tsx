@@ -26,7 +26,22 @@ export function Home() {
         <div
           className={`absolute top-0 left-0 h-screen w-64 bg-white shadow-md border transition-all transform ease-in-out
   ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}
-  shadow-lg shadow-black md:w-1/2`}></div>
+  shadow-lg shadow-black md:w-1/2`}>
+          {' '}
+          <button
+            className="flex justify-center w-full mb-2"
+            onClick={toggleMenu}>
+            <svg
+              className="w-[55px] h-[55px] md:w-[100px] md:h-[100px] mr-[180px] mt-5 md:mr-[82%]"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M11.707 5.293a1 1 0 0 1 0 1.414L7.414 11H19a1 1 0 1 1 0 2H7.414l4.293 4.293a1 1 0 0 1-1.414 1.414l-6-6a1 1 0 0 1 0-1.414l6-6a1 1 0 0 1 1.414 0z"
+                fill="#01898B"
+              />
+            </svg>
+          </button>
+        </div>
       )}
     </div>
   );
