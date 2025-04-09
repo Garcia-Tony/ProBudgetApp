@@ -37,7 +37,11 @@ export function RecurringExpense() {
           alt="Pro Budget Logo"
           className="size-14 max-w-[60px] max-h-[60px] mt-5 md:size-20 md:mt-4 md:max-w-[150px] md:max-h-[150px]"
         />
-        <div className=" flex-1 flex justify-center"></div>
+        <div className=" flex-1 flex justify-center">
+          <h2 className="md:text-6xl text-4xl font-bold text-center text-black ml-10 md:ml-[-10px] mr-40 mt-4 md:mt-7 md:mb-4 ">
+            Recurring
+          </h2>
+        </div>
 
         <div className="absolute right-4 md:right-6 md:top-3 top-2 md:top-[22px]">
           <button onClick={handleExpense}>
