@@ -10,14 +10,14 @@ export function NewExpense() {
   const [dueDate, setDueDate] = useState('');
   const [schedule, setSchedule] = useState('');
 
+  const navigate = useNavigate();
+
   const { handleSignOut } = useUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [popUp, setPopUp] = useState(false);
   const [expense, setExpense] = useState(false);
   const [, setCancel] = useState(false);
   const [save, setSave] = useState(false);
-
-  const navigate = useNavigate();
 
   const handlePopUp = () => setPopUp(true);
   const closePopUp = () => setPopUp(false);
