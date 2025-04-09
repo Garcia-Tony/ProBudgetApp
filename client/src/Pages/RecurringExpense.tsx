@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useData } from '../components/User';
+import { useExpenses } from '../components/ExpenseContext';
 
 export function RecurringExpense() {
+  const { expenses } = useExpenses();
   const { handleSignOut } = useData();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -67,32 +69,33 @@ export function RecurringExpense() {
             </svg>
           </button>
         </div>
-
-        {expense && (
-          <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-10">
-            <div className="rounded-[50px] bg-[#cbcbcb] p-6 px-6 rounded shadow-lg text-center border border-black ">
-              <h3 className="md:text-6xl text-5xl font-bold mb-5 mt-5 text-black font-extrabold">
-                Add New <br />
-                Expense?
-              </h3>
-              <button
-                className="hover:bg-[#016B6D] transition md:text-5xl md:px-20 mt-6 px-18 text-4xl font-bold py-2 px-12 bg-[#067E81] text-black border border-black rounded-full"
-                onClick={() => {
-                  navigate('/new-expense');
-                }}>
-                YES
-              </button>
-              <button
-                className="hover:bg-[#505050] transition md:text-5xl md:px-20 mt-6 px-18 text-4xl font-bold py-2 px-14 ml-4 bg-[#696969] text-black border border-black rounded-full"
-                onClick={closeExpense}>
-                NO
-              </button>
-            </div>
-          </div>
-        )}
       </div>
 
       <hr className="my-4 border-t-2 border-[#01898B] md:mt-4" />
+
+      <p className="text-2xl text-black ml-2 md:text-3xl">
+        {expenses.length === 0 ? 'No Recurring Expenses' : 'Recurring Expenses'}
+      </p>
+
+      <div className="space-y-3 mt-3 px-[5px]">
+        {expenses.length === 0 && (
+          <div className="">
+            <div className="md:mb-2 md:h-20 h-16 mb-1 bg-[#EFEFEF] rounded-lg shadow-md shadow-[#00000099] border"></div>
+            <div className="md:mb-2 md:h-20 h-16 mb-1 bg-[#EFEFEF] rounded-lg shadow-md shadow-[#00000099]"></div>
+            <div className="md:mb-2 md:h-20 h-16 mb-1 bg-[#EFEFEF] rounded-lg shadow-md shadow-[#00000099]"></div>
+          </div>
+        )}
+
+        {expenses.length > 0 &&
+          expenses.map((expense, index) => (
+            <div
+              key={index}
+              className="mb-[-4px] md:mb-[-5px] md:text-xl h-16 md:h-20 bg-[#EFEFEF] rounded-lg shadow-md shadow-[#00000099]">
+              <div className="flex px-2 md:mt-2 mb-2 md:mb-3 pt-1"></div>
+              <div className="flex justify-between items-center px-2"></div>
+            </div>
+          ))}
+      </div>
 
       {expense && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-10">
