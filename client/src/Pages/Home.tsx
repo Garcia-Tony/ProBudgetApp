@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useExpenses } from '../components/ExpenseContext';
 
 export function Home() {
-  const { expenses } = useExpenses();
+  const { expenses, totalAmount } = useExpenses();
   const { handleSignOut } = useUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [popUp, setPopUp] = useState(false);
@@ -126,6 +126,10 @@ export function Home() {
               </div>
             </div>
           ))}
+        <div className="h-5 md:h-6 flex justify-between items-center px-2 font-bold">
+          <p className="text-xl md:text-2xl text-black">Total</p>
+          <p className="text-xl md:text-2xl text-black">${totalAmount}</p>
+        </div>
       </div>
 
       {isMenuOpen && (
