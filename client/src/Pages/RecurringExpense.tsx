@@ -183,6 +183,14 @@ export function RecurringExpense() {
           </h2>
 
           <button
+            className="md:text-5xl md:px-28 md:ml-[25px] text-2xl block text-center border border-[#01898B] rounded-full py-1 md:py-2 px-[54px] ml-3 mt-7 bg-[#01898B] text-white  hover:bg-[#016B6D] transition"
+            onClick={() => {
+              navigate('/home');
+            }}>
+            Expense
+          </button>
+
+          <button
             className="md:text-5xl md:px-[100px] md:ml-[25px] text-2xl block text-center border border-[#01898B] rounded-full py-1 md:py-2 px-[47px] ml-3 mt-5 bg-[#01898B] text-white  hover:bg-[#016B6D] transition"
             onClick={() => {
               navigate('/recurring');
