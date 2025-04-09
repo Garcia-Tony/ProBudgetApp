@@ -48,6 +48,24 @@ export function Home() {
       </div>
 
       <div className="absolute right-4 md:right-6 md:top-3 top-2 md:top-[22px]">
+        <button
+          onClick={() => {
+            navigate('/home');
+          }}>
+          <svg
+            className="mt-4 w-[55px] h-[50px] md:w-[60px] md:h-[60px] md:mt-[14px] text-[#01898B]"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M9 2a1 1 0 0 1 1 1v1h4V3a1 1 0 1 1 2 0v1h3a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3V3a1 1 0 0 1 1-1zM8 6H5v3h14V6h-3v1a1 1 0 1 1-2 0V6h-4v1a1 1 0 0 1-2 0V6zm11 5H5v8h14v-8z"
+              strokeWidth="0"
+              stroke="currentColor"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+
         <button onClick={handleExpense}>
           <svg
             className="mt-4 w-12 h-12 md:w-[60px] md:h-[60px] md:mt-[14px] text-[#01898B]"
