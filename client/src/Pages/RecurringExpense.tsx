@@ -18,6 +18,38 @@ export function RecurringExpense() {
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const closeExpense = () => setExpense(false);
 
+  const getNextDueDate = (schedule: string, dueDate: string) => {
+    const currentDate = new Date(dueDate);
+    const nextDate = new Date(currentDate);
+
+    const scheduleMap: Record<string, number> = {
+      'every-week': 7,
+      'every-month': 1,
+      'every-3-months': 3,
+      'every-6-months': 6,
+      'every-year': 12,
+    };
+
+    if (schedule === 'every-week') {
+      nextDate.setDate(currentDate.getDate() + scheduleMap[schedule]);
+    } else if (scheduleMap[schedule]) {
+      const newMonth = currentDate.getMonth() + scheduleMap[schedule];
+      nextDate.setMonth(newMonth);
+
+      if (nextDate.getDate() < currentDate.getDate()) {
+        nextDate.setDate(0);
+      }
+    } else {
+      return 'N/A';
+    }
+
+    return nextDate.toLocaleDateString('en-US', {
+      month: '2-digit',
+      day: '2-digit',
+      year: 'numeric',
+    });
+  };
+
   return (
     <div className="relative flex-grow flex-1 pl-2 px-4">
       <div className="flex items-center w-full justify-between space-x-4">
@@ -91,8 +123,15 @@ export function RecurringExpense() {
             <div
               key={index}
               className="mb-[-4px] md:mb-[-5px] md:text-xl h-16 md:h-20 bg-[#EFEFEF] rounded-lg shadow-md shadow-[#00000099]">
-              <div className="flex px-2 md:mt-2 mb-2 md:mb-3 pt-1"></div>
-              <div className="flex justify-between items-center px-2"></div>
+              <div className="flex px-2 md:mt-2 mb-2 md:mb-3 pt-1">
+                <p>{expense.name}</p>
+              </div>
+              <div className="flex justify-between items-center px-2">
+                <p>
+                  Next Due: {getNextDueDate(expense.schedule, expense.dueDate)}
+                </p>
+                <p>${expense.amount}</p>
+              </div>
             </div>
           ))}
       </div>
