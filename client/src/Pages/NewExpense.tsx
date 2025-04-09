@@ -13,6 +13,7 @@ export function NewExpense() {
   const [popUp, setPopUp] = useState(false);
   const [expense, setExpense] = useState(false);
   const [, setCancel] = useState(false);
+  const [save, setSave] = useState(false);
 
   const navigate = useNavigate();
 
@@ -22,6 +23,7 @@ export function NewExpense() {
   const handleExpense = () => setExpense(true);
   const closeExpense = () => setExpense(false);
   const closeCancel = () => setCancel(false);
+  const handleSave = () => setSave(true);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -249,7 +251,8 @@ export function NewExpense() {
         <div className="flex justify-center md:mt-1">
           <button
             className=" drop-shadow-xl mt-6 px-[65px] md:px-[275px] mr-1 ml-2 text-4xl md:text-5xl font-bold py-1 md:py-2 px-12 bg-[#067E81] text-black border rounded-3xl"
-            style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
+            style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}
+            onClick={handleSave}>
             Save
           </button>
           <button
@@ -291,6 +294,12 @@ export function NewExpense() {
             onClick={handlePopUp}>
             Log Out
           </button>
+        </div>
+      )}
+
+      {save && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-10">
+          <div className="md:px-8 md:py-8 bg-[#cbcbcb] py-5 px-6 p-6 rounded shadow-lg text-center border border-black rounded-[50px] "></div>
         </div>
       )}
 
