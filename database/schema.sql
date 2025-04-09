@@ -15,12 +15,14 @@ create table "public"."users" (
   unique ("username")
 );
 
-create table "public"."todos" (
-  "todoId"      serial,
-  "userId"      integer        not null,
-  "task"        text           not null,
-  "isCompleted" boolean        not null,
-  "createdAt"   timestamptz(6) not null default now(),
-  "updatedAt"   timestamptz(6) not null default now(),
-  primary key ("todoId")
+create table "public"."expenses" (
+  "expenseId"      serial,
+  "userId"         integer        not null,
+  "amount"         numeric(10, 2) not null,
+  "category"       text           not null,
+  "description"    text           not null,
+  "createdAt"      timestamptz(6) not null default now(),
+  "updatedAt"      timestamptz(6) not null default now(),
+  primary key ("expenseId"),
+  foreign key ("userId") references "public"."users" ("userId") on delete cascade
 );
