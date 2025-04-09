@@ -159,6 +159,44 @@ app.put('/api/todos/:todoId', authMiddleware, async (req, res, next) => {
   }
 });
 
+app.post('/api/user-accessibility', authMiddleware, async (req, res, next) => {
+  try {
+    const { userId, role, permissions } = req.body;
+    if (!userId || !role || !permissions) {
+      throw new ClientError(400, 'userId, role, and permissions are required');
+    }
+
+    const sql = `
+      insert into "user_accessibility" ("userId", "role", "permissions")
+      values ($1, $2, $3)
+      returning *;
+    `;
+    const params = [userId, role, permissions];
+    const result = await db.query(sql, params);
+    const [access] = result.rows;
+    res.status(201).json(access);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.get('/api/user-accessibility', authMiddleware, async (req, res, next) => {
+  try {
+    const sql = `
+      select "role", "permissions", "createdAt", "updatedAt"
+      from "user_accessibility"
+      where "userId" = $1;
+    `;
+    const result = await db.query(sql, [req.user?.userId]);
+    if (result.rows.length === 0) {
+      throw new ClientError(404, 'No access data found for this user');
+    }
+    res.json(result.rows);
+  } catch (err) {
+    next(err);
+  }
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

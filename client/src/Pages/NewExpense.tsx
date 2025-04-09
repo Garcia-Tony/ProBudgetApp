@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useUser } from '../components/UseUser';
 import { useNavigate } from 'react-router-dom';
+import { useExpenses } from '../components/ExpenseContext';
 
 export function NewExpense() {
+  const { addExpense } = useExpenses();
   const [expenseName, setExpenseName] = useState('');
   const [amount, setAmount] = useState('');
   const [dueDate, setDueDate] = useState('');
-  const [, setSchedule] = useState('');
+  const [schedule, setSchedule] = useState('');
 
   const { handleSignOut } = useUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,6 +29,9 @@ export function NewExpense() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const newExpense = { name: expenseName, amount, dueDate, schedule };
+    addExpense(newExpense);
   };
 
   return (

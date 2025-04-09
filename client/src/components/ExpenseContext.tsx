@@ -5,7 +5,7 @@ import React, {
   useState,
   useEffect,
 } from 'react';
-import { useData } from './User';
+import { useData } from '../components/User';
 
 interface Expense {
   name: string;

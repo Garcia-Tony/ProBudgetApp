@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { useUser } from '../components/UseUser';
 import { useNavigate } from 'react-router-dom';
+import { useExpenses } from '../components/ExpenseContext';
 
 export function Home() {
+  const { expenses, totalAmount } = useExpenses();
   const { handleSignOut } = useUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [popUp, setPopUp] = useState(false);
@@ -96,13 +98,39 @@ export function Home() {
       <hr className="my-4 border-t-2 border-[#01898B] md:mt-4" />
 
       <p className=" text-2xl text-black ml-2 md:text-3xl">
-        No Current Expenses
+        {expenses.length === 0 ? 'No Current Expenses' : 'Current Expenses'}
       </p>
 
-      <div className="space-y-3 mt-4 px-[5px]">
-        <div className="h-16 bg-[#EFEFEF] rounded-lg shadow-md shadow-[#00000099] border"></div>
-        <div className="h-16 bg-[#EFEFEF] rounded-lg shadow-md shadow-[#00000099]"></div>
-        <div className="h-16 bg-[#EFEFEF] rounded-lg shadow-md shadow-[#00000099]"></div>
+      <div className="space-y-3 mt-3 px-[5px]">
+        {expenses.length === 0 && (
+          <>
+            <div className="">
+              <div className=" md:mb-2 md:h-20 h-16 mb-1 bg-[#EFEFEF] rounded-lg shadow-md shadow-[#00000099] border"></div>
+              <div className=" md:mb-2 md:h-20 h-16 mb-1 bg-[#EFEFEF] rounded-lg shadow-md shadow-[#00000099]"></div>
+              <div className=" md:mb-2 md:h-20 h-16 mb-1 bg-[#EFEFEF] rounded-lg shadow-md shadow-[#00000099]"></div>
+            </div>
+          </>
+        )}
+
+        {expenses.length > 0 &&
+          expenses.map((expense, index) => (
+            <div
+              key={index}
+              className="mb-[-4px] md:mb-[-5px] md:text-xl h-16 md:h-20 bg-[#EFEFEF] rounded-lg shadow-md shadow-[#00000099]">
+              <div className="flex px-2 md:mt-2 mb-2 md:mb-3 pt-1">
+                <p>{expense.name}</p>
+              </div>
+              <div className="flex justify-between items-center px-2">
+                <p>{expense.dueDate}</p>
+                <p>${expense.amount}</p>
+              </div>
+            </div>
+          ))}
+
+        <div className="h-5 md:h-6 flex justify-between items-center px-2 font-bold">
+          <p className="text-xl md:text-2xl text-black">Total</p>
+          <p className="text-xl md:text-2xl text-black">${totalAmount}</p>
+        </div>
       </div>
 
       {isMenuOpen && (
