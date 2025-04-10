@@ -1,4 +1,4 @@
-import { User } from '../components/UserContext';
+import { User } from '../components/UserContext.tsx';
 
 const authKey = 'um.auth';
 

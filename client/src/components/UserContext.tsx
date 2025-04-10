@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useState } from 'react';
-import { removeAuth, saveAuth } from '../lib';
+import { removeAuth, saveAuth } from '../lib/data.ts';
 
 export type User = {
   userId: number;
