@@ -16,6 +16,7 @@ export function EditExpense() {
   const [, setCalendar] = useState(false);
   const navigate = useNavigate();
   const [save, setSave] = useState(false);
+  const [, setCancel] = useState(false);
 
   const handlePopUp = () => setPopUp(true);
   const closePopUp = () => setPopUp(false);
@@ -23,6 +24,7 @@ export function EditExpense() {
   const handleExpense = () => setExpense((prev) => !prev);
   const closeExpense = () => setExpense(false);
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+  const closeCancel = () => setCancel(false);
 
   useEffect(() => {
     if (selectedExpense) {
@@ -321,7 +323,17 @@ export function EditExpense() {
 
           <button
             className=" hover:bg-[#505050] transition drop-shadow-xl mt-6 px-[50px] md:px-[275px] ml-6 text-4xl font-bold py-1 md:py-2 md:text-5xl px-12 bg-[#696969] text-black border rounded-3xl"
-            style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
+            style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}
+            onClick={() => {
+              if (selectedExpense) {
+                setExpenseName(selectedExpense.name);
+                setAmount(selectedExpense.amount);
+                setDueDate(selectedExpense.dueDate);
+                setSchedule(selectedExpense.schedule);
+              }
+              closeCancel();
+              navigate('/home');
+            }}>
             Cancel
           </button>
         </div>
