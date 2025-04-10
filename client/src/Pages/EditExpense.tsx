@@ -1,9 +1,15 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useData } from '../components/User.ts';
+import { useExpenses } from '../components/ExpenseContext.tsx';
 
 export function EditExpense() {
+  const { selectedExpense, editExpense } = useExpenses();
   const { handleSignOut } = useData();
+  const [expenseName, setExpenseName] = useState('');
+  const [amount, setAmount] = useState('');
+  const [dueDate, setDueDate] = useState('');
+  const [schedule, setSchedule] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [popUp, setPopUp] = useState(false);
   const [expense, setExpense] = useState(false);
@@ -16,6 +22,36 @@ export function EditExpense() {
   const handleExpense = () => setExpense((prev) => !prev);
   const closeExpense = () => setExpense(false);
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+
+  const handleSave = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!expenseName || !amount || !dueDate || !schedule) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
+    const datePattern = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/;
+    if (!dueDate.match(datePattern)) {
+      alert('Invalid date format! Please enter the date in MM/DD/YYYY format.');
+      return;
+    }
+
+    if (!selectedExpense) {
+      alert('No expense selected to update.');
+      return;
+    }
+
+    const updatedExpense = {
+      id: selectedExpense.id,
+      name: expenseName,
+      amount: amount,
+      dueDate: dueDate,
+      schedule: schedule,
+    };
+
+    editExpense(updatedExpense);
+  };
 
   return (
     <div className="relative flex-grow flex-1 pl-2 px-4">
@@ -114,6 +150,153 @@ export function EditExpense() {
         style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
         Edit Expense
       </h2>
+
+      <form onSubmit={handleSave}>
+        <label className="block">
+          <span
+            className="ml-1 text-2xl md:text-4xl text-black"
+            style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
+            Expense{' '}
+          </span>
+          <input
+            required
+            name="Expense"
+            placeholder="Expense Name"
+            type="text"
+            value={expenseName}
+            onChange={(e) => setExpenseName(e.target.value)}
+            className="mt-1 text-l md:text-xl block border border-gray-600 rounded p-2 h-9 md:h-10 w-full"
+          />
+        </label>
+
+        <label className="block mt-3">
+          <span
+            className="ml-1 text-xl md:text-3xl text-black"
+            style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
+            Amount
+          </span>
+          <input
+            required
+            name="Amount"
+            placeholder="$"
+            type="text"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className="mt-1 md:text-xl text-l block border border-gray-600 rounded p-2 h-9 md:h-10 w-full"
+          />
+        </label>
+
+        <label className="block mt-3">
+          <span
+            className="ml-1 text-xl md:text-3xl text-black"
+            style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
+            Due Date
+          </span>
+          <input
+            required
+            name="Due Date"
+            placeholder="MM/DD/YYYY"
+            type="text"
+            value={dueDate}
+            onChange={(e) => setDueDate(e.target.value)}
+            className="mt-1 text-l md:text-xl block border border-gray-600 rounded p-2 h-9 md:h-10 w-full"
+          />
+        </label>
+
+        <label className="block mt-6">
+          <span
+            className="ml-1 text-2xl md:text-4xl text-black"
+            style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
+            Schedule
+          </span>
+          <div className=" flex flex-col md:flex-row md:space-x-36 md:text-2xl md:items-center mt-2 pt-2 bg-[#E1E0E0] rounded-lg shadow-md shadow-gray-500 p-2">
+            <label className="mt-[-2px] md:mt-1 md:mb-1 flex items-center space-x-2">
+              <input
+                required
+                type="radio"
+                name="Schedule"
+                value="every-week"
+                className="form-radio text-[#01898B] md:w-4 md:h-4"
+                checked={schedule === 'every-week'}
+                onChange={(e) => setSchedule(e.target.value)}
+              />
+              <span
+                className="text-l md:text-2xl"
+                style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
+                Every Week
+              </span>
+            </label>
+
+            <label className="mt-1 flex items-center space-x-2">
+              <input
+                type="radio"
+                name="Schedule"
+                value="every-month"
+                className="form-radio text-[#01898B] md:w-4 md:h-4"
+                required
+                checked={schedule === 'every-month'}
+                onChange={(e) => setSchedule(e.target.value)}
+              />
+              <span
+                className="text-l md:text-2xl"
+                style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
+                Every Month
+              </span>
+            </label>
+
+            <label className="mt-1 flex items-center space-x-2">
+              <input
+                type="radio"
+                name="Schedule"
+                value="every-3-months"
+                className="form-radio text-[#01898B] md:w-4 md:h-4"
+                required
+                checked={schedule === 'every-3-months'}
+                onChange={(e) => setSchedule(e.target.value)}
+              />
+              <span
+                className="text-l md:text-2xl"
+                style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
+                Every 3 Months
+              </span>
+            </label>
+
+            <label className="mt-1 flex items-center space-x-2">
+              <input
+                type="radio"
+                name="Schedule"
+                value="every-6-months"
+                className="form-radio text-[#01898B] md:w-4 md:h-4"
+                required
+                checked={schedule === 'every-6-months'}
+                onChange={(e) => setSchedule(e.target.value)}
+              />
+              <span
+                className="text-l md:text-2xl"
+                style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
+                Every 6 Months
+              </span>
+            </label>
+
+            <label className="mt-1 flex items-center space-x-2">
+              <input
+                type="radio"
+                name="Schedule"
+                value="every-year"
+                className="form-radio text-[#01898B] md:w-4 md:h-4"
+                required
+                checked={schedule === 'every-year'}
+                onChange={(e) => setSchedule(e.target.value)}
+              />
+              <span
+                className="text-l md:text-2xl"
+                style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
+                Every Year
+              </span>
+            </label>
+          </div>
+        </label>
+      </form>
 
       {isMenuOpen && (
         <div
