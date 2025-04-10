@@ -296,6 +296,13 @@ export function EditExpense() {
             </label>
           </div>
         </label>
+
+        <button
+          className=" hover:bg-[#016B6D] transition transition drop-shadow-xl mt-6 px-[65px] md:px-[275px] mr-1 ml-2 text-4xl md:text-5xl font-bold py-1 md:py-2 px-12 bg-[#067E81] text-black border rounded-3xl"
+          style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}
+          type="submit">
+          Save
+        </button>
       </form>
 
       {isMenuOpen && (
