@@ -1,22 +1,46 @@
-import { useState } from 'react';
-import { useUser } from '../components/UseUser';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useExpenses } from '../components/ExpenseContext';
+import { Expense, useExpenses } from '../components/ExpenseContext.tsx';
+import { useData } from '../components/User.ts';
+
 
 export function Home() {
-  const { expenses, totalAmount } = useExpenses();
-  const { handleSignOut } = useUser();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [popUp, setPopUp] = useState(false);
-  const [expense, setExpense] = useState(false);
+   const { user } = useData();
+   const { expenses, totalAmount, setSelectedExpense } = useExpenses();
+   const { handleSignOut } = useData();
+   const [isMenuOpen, setIsMenuOpen] = useState(false);
+   const [popUp, setPopUp] = useState(false);
+   const [expense, setExpense] = useState(false);
+   const [, setStoredExpenses] = useState<Expense[]>([]);
+   const [, setCalendar] = useState(false);
+   const navigate = useNavigate();
 
-  const navigate = useNavigate();
+    const handlePopUp = () => setPopUp(true);
+    const closePopUp = () => setPopUp(false);
+    const handleCalendar = () => setCalendar(false);
+    const handleExpense = () => setExpense((prev) => !prev);
+    const closeExpense = () => setExpense(false);
+    const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
-  const handlePopUp = () => setPopUp(true);
-  const closePopUp = () => setPopUp(false);
-  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
-  const handleExpense = () => setExpense(true);
-  const closeExpense = () => setExpense(false);
+  const handleEditClick = (expense: Expense) => {
+    console.log('Editing Expense:', expense);
+    setSelectedExpense(expense);
+    navigate('/edit-expense');
+  };
+
+  useEffect(() => {
+    if (!user || !user.userId) {
+      console.error('Home.tsx: Cannot find user.');
+      return;
+    }
+
+    console.log('Home.tsx: User found:', user);
+
+    const savedExpenses = localStorage.getItem(`expenses_${user.userId}`);
+    if (savedExpenses) {
+      setStoredExpenses(JSON.parse(savedExpenses));
+    }
+  }, [user, expenses]);
 
   return (
     <div className="relative flex-grow flex-1 pl-2 px-4">
@@ -50,6 +74,7 @@ export function Home() {
       <div className="absolute right-4 md:right-6 md:top-3 top-2 md:top-[22px]">
         <button
           onClick={() => {
+            handleCalendar();
             navigate('/calendar');
           }}>
           <svg
@@ -131,19 +156,31 @@ export function Home() {
         )}
 
         {expenses.length > 0 &&
-          expenses.map((expense, index) => (
+          expenses.map((expense) => (
             <div
-              key={index}
+              key={expense.id}
               className="mb-[-4px] md:mb-[-5px] md:text-xl h-16 md:h-20 bg-[#EFEFEF] rounded-lg shadow-md shadow-[#00000099]">
-              <div className="flex px-2 md:mt-2 mb-2 md:mb-3 pt-1">
+              <div className="flex justify-between px-2 md:mt-2 mb-2 md:mb-3 pt-1">
                 <p>{expense.name}</p>
+                <button
+                 >
+                  <svg
+                    className="md:w-[25px] md:h-[25px] w-4 h-4 mt-1 text-[#01898B]"
+                    viewBox="0 0 16 16">
+                    <path
+                      fill="000"
+                      d="M14.487333333333334 1.5126666666666666a1.75 1.75 0 0 0 -2.474666666666667 0l-0.7713333333333333 0.7713333333333333 2.474666666666667 2.474666666666667 0.7713333333333333 -0.7713333333333333a1.75 1.75 0 0 0 0 -2.474666666666667Zm-1.4786666666666666 3.953333333333333 -2.474666666666667 -2.474666666666667 -8.1 8.1a3.5 3.5 0 0 0 -0.88 1.476l-0.5333333333333333 1.79a0.5 0.5 0 0 0 0.622 0.622l1.79 -0.5333333333333333a3.5 3.5 0 0 0 1.476 -0.88L13.008666666666667 5.466666666666666Z"
+                    />
+                  </svg>
+                </button>
               </div>
               <div className="flex justify-between items-center px-2">
-                <p>{expense.dueDate}</p>
+                <p>Date Due: {expense.dueDate}</p>
                 <p>${expense.amount}</p>
               </div>
             </div>
           ))}
+
         <div className="h-5 md:h-6 flex justify-between items-center px-2 font-bold">
           <p className="text-xl md:text-2xl text-black">Total</p>
           <p className="text-xl md:text-2xl text-black">${totalAmount}</p>

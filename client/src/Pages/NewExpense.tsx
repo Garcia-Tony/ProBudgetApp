@@ -27,12 +27,35 @@ export function NewExpense() {
   const closeCancel = () => setCancel(false);
   const handleSave = () => setSave(true);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
 
-    const newExpense = { name: expenseName, amount, dueDate, schedule };
-    addExpense(newExpense);
-  };
+    const handleSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+
+      const datePattern = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/;
+
+      if (!expenseName || !amount || !dueDate || !schedule) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
+      if (!dueDate.match(datePattern)) {
+        alert(
+          'Invalid date format! Please enter the date in MM/DD/YYYY format.'
+        );
+        return;
+      }
+
+      const newExpense = {
+        id: Date.now().toString(),
+        name: expenseName,
+        amount,
+        dueDate,
+        schedule,
+      };
+      addExpense(newExpense);
+      setSave(true);
+    };
+
 
   return (
     <div className="relative flex-grow flex-1 pl-2 px-4">
