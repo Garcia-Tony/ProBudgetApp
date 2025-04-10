@@ -55,11 +55,6 @@ export function EditExpense() {
       return;
     }
 
-    if (!selectedExpense) {
-      alert('No expense selected to update.');
-      return;
-    }
-
     const updatedExpense = {
       id: selectedExpense.id,
       name: expenseName,
