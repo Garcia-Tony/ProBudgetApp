@@ -1,13 +1,12 @@
-import { useNavigate } from 'react-router-dom';
-import { useData } from '../components/User';
 import { useState } from 'react';
-import '/index.css';
-
-import Calendar from 'react-calendar';
+import { useNavigate } from 'react-router-dom';
+import { useData } from '../components/User.ts';
+import { useExpenses } from '../components/ExpenseContext.tsx';
+import { Calendar } from 'react-calendar';
 
 import 'react-calendar/dist/Calendar.css';
+import '/index.css';
 import { Value } from 'react-calendar/src/shared/types.js';
-import { useExpenses } from '../components/ExpenseContext';
 
 export function CalendarExpense() {
   const { expenses } = useExpenses();
@@ -219,7 +218,7 @@ export function CalendarExpense() {
       </div>
 
       {popupExpenses && (
-        <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 md:mt-3 bg-white border border-gray-300 shadow-lg rounded-lg md:w-[1190px] w-[400px] md:w-[400px] p-4 z-50">
+        <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 md:mt-3 bg-white border border-gray-300 shadow-lg rounded-lg md:w-[1200px] w-[400px] md:w-[400px] p-4 z-50">
           <h3 className="text-xl md:text-2xl md:pt-2 font-bold text-center text-black mb-3">
             Expenses for {popupExpenses.date}
           </h3>
