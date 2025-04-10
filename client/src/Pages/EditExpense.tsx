@@ -321,7 +321,17 @@ export function EditExpense() {
 
       {save && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-10">
-          <div className="md:px-8 md:py-8 bg-[#cbcbcb] py-5 px-6 p-6 rounded shadow-lg text-center border border-black rounded-[50px] "></div>
+          <div className="md:px-8 md:py-8 bg-[#cbcbcb] py-5 px-6 p-6 rounded shadow-lg text-center border border-black rounded-[50px] ">
+            <h3 className="md:text-[50px] text-[44px] font-bold text-black mt-1">
+              Expense <br /> Updated!
+            </h3>
+
+            <button
+              className="hover:bg-[#016B6D] transition md:px-36 md:py-3 font-bold mt-6 px-28 text-4xl py-2 bg-[#067E81] text-black border border-black rounded-full"
+              onClick={() => navigate('/home')}>
+              OK
+            </button>
+          </div>
         </div>
       )}
 
