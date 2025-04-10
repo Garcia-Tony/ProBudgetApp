@@ -2,13 +2,26 @@ import { useNavigate } from 'react-router-dom';
 import { useData } from '../components/User';
 import { useState } from 'react';
 
+import Calendar from 'react-calendar';
+
+import 'react-calendar/dist/Calendar.css';
+import '/index.css';
+import { Value } from 'react-calendar/src/shared/types.js';
+import { useExpenses } from '../components/ExpenseContext';
+
 export function CalendarExpense() {
+  const { expenses } = useExpenses();
   const { handleSignOut } = useData();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [popUp, setPopUp] = useState(false);
   const [expense, setExpense] = useState(false);
   const [, setCalendar] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const [popupExpenses, setPopupExpenses] = useState<{
+    date: string;
+    expenses: { name: string; amount: string }[];
+  } | null>(null);
 
   const handlePopUp = () => setPopUp(true);
   const closePopUp = () => setPopUp(false);
@@ -16,6 +29,84 @@ export function CalendarExpense() {
   const handleCalendar = () => setCalendar(true);
   const closeExpense = () => setExpense(false);
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+
+  const formatDate = (date: Date) => {
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const year = date.getFullYear();
+
+    return `${month}/${day}/${year}`;
+  };
+
+  const isRecurringExpense = (
+    expense: { dueDate: string; schedule: string },
+    date: Date
+  ) => {
+    const dueDate = new Date(expense.dueDate);
+    const current = new Date(dueDate);
+    const dateString = formatDate(date);
+
+    while (current <= date) {
+      if (formatDate(current) === dateString) return true;
+
+      switch (expense.schedule) {
+        case 'every-week':
+          current.setDate(current.getDate() + 7);
+          break;
+        case 'every-month':
+          current.setMonth(current.getMonth() + 1);
+          break;
+        case 'every-3-months':
+          current.setMonth(current.getMonth() + 3);
+          break;
+        case 'every-6-months':
+          current.setMonth(current.getMonth() + 6);
+          break;
+        case 'every-year':
+          current.setFullYear(current.getFullYear() + 1);
+          break;
+        default:
+          return false;
+      }
+    }
+    return false;
+  };
+
+  const tileContent = ({ date }: { date: Date }) => {
+    const dateString = formatDate(date);
+
+    const hasExpense = expenses.some(
+      (expense) =>
+        formatDate(new Date(expense.dueDate)) === dateString ||
+        isRecurringExpense(expense, date)
+    );
+
+    return hasExpense ? (
+      <div className="relative flex justify-end w-full">
+        <span className="expense-dot"></span>
+      </div>
+    ) : null;
+  };
+
+  const handleDateClick = (value: Value) => {
+    if (!value || Array.isArray(value)) return;
+
+    const date = value as Date;
+    setSelectedDate(date);
+    const dateString = formatDate(date);
+
+    const expensesOnDate = expenses.filter(
+      (expense) =>
+        formatDate(new Date(expense.dueDate)) === dateString ||
+        isRecurringExpense(expense, date)
+    );
+
+    if (expensesOnDate.length > 0) {
+      setPopupExpenses({ date: dateString, expenses: expensesOnDate });
+    } else {
+      setPopupExpenses(null);
+    }
+  };
 
   return (
     <div className="relative flex-grow flex-1 pl-2 px-4">
@@ -115,6 +206,43 @@ export function CalendarExpense() {
       </div>
 
       <hr className="my-4 border-t-2 border-[#01898B] md:mt-4" />
+
+      <div className="px-12 w-full flex justify-center items-center mt-8">
+        <Calendar
+          locale="en-US"
+          calendarType="gregory"
+          onChange={handleDateClick}
+          value={selectedDate}
+          tileContent={tileContent}
+          className="custom-calendar px-[-40px] w-full max-w-[100px] text-xl h-[510px] border border-[#01898B] shadow-lg p-4 pt-8 rounded-lg bg-white"
+        />
+      </div>
+
+      {popupExpenses && (
+        <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 md:mt-3 bg-white border border-gray-300 shadow-lg rounded-lg md:w-[1190px] w-[400px] md:w-[400px] p-4 z-50">
+          <h3 className="text-xl md:text-2xl md:pt-2 font-bold text-center text-black mb-3">
+            Expenses for {popupExpenses.date}
+          </h3>
+          <div className="max-h-[200px] overflow-y-auto">
+            {popupExpenses.expenses.map((expense, index) => (
+              <div
+                key={index}
+                className="md:text-xl flex justify-between border-b border-gray-200 py-2 px-2">
+                <span className="text-black">{expense.name}</span>
+                <span className="text-[#01898B] font-bold">
+                  ${expense.amount}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <button
+            className="w-full mt-4 bg-[#01898B] hover:bg-[#016B6D] text-white font-bold py-2 md:py-3 md:text-xl rounded-lg"
+            onClick={() => setPopupExpenses(null)}>
+            Close
+          </button>
+        </div>
+      )}
 
       {isMenuOpen && (
         <div
