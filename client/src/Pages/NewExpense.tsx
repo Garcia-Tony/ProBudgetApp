@@ -10,14 +10,14 @@ export function NewExpense() {
   const [dueDate, setDueDate] = useState('');
   const [schedule, setSchedule] = useState('');
 
+  const navigate = useNavigate();
+
   const { handleSignOut } = useUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [popUp, setPopUp] = useState(false);
   const [expense, setExpense] = useState(false);
   const [, setCancel] = useState(false);
   const [save, setSave] = useState(false);
-
-  const navigate = useNavigate();
 
   const handlePopUp = () => setPopUp(true);
   const closePopUp = () => setPopUp(false);
@@ -58,6 +58,24 @@ export function NewExpense() {
       </div>
 
       <div className="absolute right-4 md:right-6 md:top-3 top-2 md:top-[22px]">
+        <button
+          onClick={() => {
+            navigate('/calendar');
+          }}>
+          <svg
+            className="mt-4 w-[55px] h-[50px] md:w-[60px] md:h-[60px] md:mt-[14px] text-[#01898B]"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M9 2a1 1 0 0 1 1 1v1h4V3a1 1 0 1 1 2 0v1h3a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3V3a1 1 0 0 1 1-1zM8 6H5v3h14V6h-3v1a1 1 0 1 1-2 0V6h-4v1a1 1 0 0 1-2 0V6zm11 5H5v8h14v-8z"
+              strokeWidth="0"
+              stroke="currentColor"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+
         <button onClick={handleExpense}>
           <svg
             className="mt-4 w-12 h-12 md:w-[60px] md:h-[60px] md:mt-[14px] text-[#01898B]"
@@ -294,8 +312,25 @@ export function NewExpense() {
           <h2 className="text-4xl ml-3 text-[#01898B] font-bold mt-8 md:text-5xl md:ml-[25px]">
             Menu
           </h2>
+
           <button
-            className="md:text-4xl md:px-28 md:ml-[25px] text-2xl block text-center border border-[#01898B] rounded-full py-1 px-[55px] ml-3 mt-10 bg-[#01898B] text-white  hover:bg-[#016B6D] transition"
+            className="md:text-5xl md:px-28 md:ml-[25px] text-2xl block text-center border border-[#01898B] rounded-full py-1 md:py-2 px-[54px] ml-3 mt-7 bg-[#01898B] text-white  hover:bg-[#016B6D] transition"
+            onClick={() => {
+              navigate('/home');
+            }}>
+            Expense
+          </button>
+
+          <button
+            className="md:text-5xl md:px-[100px] md:ml-[25px] text-2xl block text-center border border-[#01898B] rounded-full py-1 md:py-2 px-[47px] ml-3 mt-5 bg-[#01898B] text-white  hover:bg-[#016B6D] transition"
+            onClick={() => {
+              navigate('/recurring');
+            }}>
+            Recurring
+          </button>
+
+          <button
+            className="md:text-5xl md:px-[115px] md:ml-[25px] text-2xl block text-center border border-[#01898B] rounded-full py-1 md:py-2 px-[55px] ml-3 mt-5 bg-[#01898B] text-white  hover:bg-[#016B6D] transition"
             onClick={handlePopUp}>
             Log Out
           </button>
