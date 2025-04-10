@@ -3,24 +3,23 @@ import { useNavigate } from 'react-router-dom';
 import { Expense, useExpenses } from '../components/ExpenseContext.tsx';
 import { useData } from '../components/User.ts';
 
-
 export function Home() {
-   const { user } = useData();
-   const { expenses, totalAmount, setSelectedExpense } = useExpenses();
-   const { handleSignOut } = useData();
-   const [isMenuOpen, setIsMenuOpen] = useState(false);
-   const [popUp, setPopUp] = useState(false);
-   const [expense, setExpense] = useState(false);
-   const [, setStoredExpenses] = useState<Expense[]>([]);
-   const [, setCalendar] = useState(false);
-   const navigate = useNavigate();
+  const { user } = useData();
+  const { expenses, totalAmount, setSelectedExpense } = useExpenses();
+  const { handleSignOut } = useData();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [popUp, setPopUp] = useState(false);
+  const [expense, setExpense] = useState(false);
+  const [, setStoredExpenses] = useState<Expense[]>([]);
+  const [, setCalendar] = useState(false);
+  const navigate = useNavigate();
 
-    const handlePopUp = () => setPopUp(true);
-    const closePopUp = () => setPopUp(false);
-    const handleCalendar = () => setCalendar(false);
-    const handleExpense = () => setExpense((prev) => !prev);
-    const closeExpense = () => setExpense(false);
-    const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+  const handlePopUp = () => setPopUp(true);
+  const closePopUp = () => setPopUp(false);
+  const handleCalendar = () => setCalendar(false);
+  const handleExpense = () => setExpense((prev) => !prev);
+  const closeExpense = () => setExpense(false);
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
   const handleEditClick = (expense: Expense) => {
     console.log('Editing Expense:', expense);
@@ -163,7 +162,9 @@ export function Home() {
               <div className="flex justify-between px-2 md:mt-2 mb-2 md:mb-3 pt-1">
                 <p>{expense.name}</p>
                 <button
-                 >
+                  onClick={() => {
+                    handleEditClick(expense);
+                  }}>
                   <svg
                     className="md:w-[25px] md:h-[25px] w-4 h-4 mt-1 text-[#01898B]"
                     viewBox="0 0 16 16">
