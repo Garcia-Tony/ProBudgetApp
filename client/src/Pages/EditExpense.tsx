@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useData } from '../components/User.ts';
 import { useExpenses } from '../components/ExpenseContext.tsx';
@@ -15,6 +15,7 @@ export function EditExpense() {
   const [expense, setExpense] = useState(false);
   const [, setCalendar] = useState(false);
   const navigate = useNavigate();
+  const [save, setSave] = useState(false);
 
   const handlePopUp = () => setPopUp(true);
   const closePopUp = () => setPopUp(false);
@@ -22,6 +23,23 @@ export function EditExpense() {
   const handleExpense = () => setExpense((prev) => !prev);
   const closeExpense = () => setExpense(false);
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+
+  useEffect(() => {
+    if (selectedExpense) {
+      setExpenseName(selectedExpense.name);
+      setAmount(selectedExpense.amount);
+      setDueDate(selectedExpense.dueDate);
+      setSchedule(selectedExpense.schedule);
+    }
+  }, [selectedExpense]);
+
+  if (!selectedExpense) {
+    return (
+      <p className="text-center text-3xl font-bold text-red-500">
+        No expense selected for editing.
+      </p>
+    );
+  }
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,6 +69,7 @@ export function EditExpense() {
     };
 
     editExpense(updatedExpense);
+    setSave(true);
   };
 
   return (
@@ -304,6 +323,12 @@ export function EditExpense() {
           Save
         </button>
       </form>
+
+      {save && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-10">
+          <div className="md:px-8 md:py-8 bg-[#cbcbcb] py-5 px-6 p-6 rounded shadow-lg text-center border border-black rounded-[50px] "></div>
+        </div>
+      )}
 
       {isMenuOpen && (
         <div
