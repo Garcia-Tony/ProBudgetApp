@@ -18,7 +18,7 @@ export function EditExpense() {
   const [save, setSave] = useState(false);
   const [, setCancel] = useState(false);
   const [remove, setRemove] = useState(false);
-  const [, setConfirm] = useState(false);
+  const [confirm, setConfirm] = useState(false);
 
   const handlePopUp = () => setPopUp(true);
   const closePopUp = () => setPopUp(false);
@@ -83,6 +83,11 @@ export function EditExpense() {
       setRemove(false);
       setConfirm(true);
     }
+  };
+
+  const handleConfirm = () => {
+    setConfirm(false);
+    navigate('/home');
   };
 
   return (
@@ -384,6 +389,22 @@ export function EditExpense() {
               className="hover:bg-[#505050] transition md:text-5xl md:px-20 mt-6 px-18 text-4xl font-bold py-2 px-14 ml-4 bg-[#696969] text-black border border-black rounded-full"
               onClick={() => setRemove(false)}>
               NO
+            </button>
+          </div>
+        </div>
+      )}
+
+      {confirm && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-10">
+          <div className="md:px-8 md:py-8 bg-[#cbcbcb] py-5 px-6 p-6 rounded shadow-lg text-center border border-black rounded-[50px] ">
+            <h3 className="md:text-[50px] text-[44px] font-bold text-black mt-1">
+              Expense <br /> Deleted!
+            </h3>
+
+            <button
+              className="hover:bg-[#016B6D] transition md:px-36 md:py-3 font-bold mt-6 px-28 text-4xl py-2 bg-[#067E81] text-black border border-black rounded-full"
+              onClick={handleConfirm}>
+              OK
             </button>
           </div>
         </div>
