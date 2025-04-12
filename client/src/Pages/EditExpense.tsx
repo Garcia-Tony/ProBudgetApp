@@ -4,7 +4,7 @@ import { useData } from '../components/User.ts';
 import { useExpenses } from '../components/ExpenseContext.tsx';
 
 export function EditExpense() {
-  const { selectedExpense, editExpense } = useExpenses();
+  const { selectedExpense, editExpense, deleteExpense } = useExpenses();
   const { handleSignOut } = useData();
   const [expenseName, setExpenseName] = useState('');
   const [amount, setAmount] = useState('');
@@ -18,6 +18,7 @@ export function EditExpense() {
   const [save, setSave] = useState(false);
   const [, setCancel] = useState(false);
   const [remove, setRemove] = useState(false);
+  const [, setConfirm] = useState(false);
 
   const handlePopUp = () => setPopUp(true);
   const closePopUp = () => setPopUp(false);
@@ -73,6 +74,14 @@ export function EditExpense() {
   const handleDelete = () => {
     if (selectedExpense) {
       setRemove(true);
+    }
+  };
+
+  const handleDeleteConfirm = () => {
+    if (selectedExpense) {
+      deleteExpense(selectedExpense.id);
+      setRemove(false);
+      setConfirm(true);
     }
   };
 
@@ -192,7 +201,7 @@ export function EditExpense() {
           <span
             className="ml-1 text-2xl md:text-4xl text-black"
             style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}>
-            Expense{' '}
+            Expense
           </span>
           <input
             required
@@ -366,7 +375,9 @@ export function EditExpense() {
               Delete <br />
               Expense?
             </h3>
-            <button className="hover:bg-[#016B6D] transition md:text-5xl md:px-20 mt-6 px-18 text-4xl font-bold py-2 px-12 bg-[#067E81] text-black border border-black rounded-full">
+            <button
+              className="hover:bg-[#016B6D] transition md:text-5xl md:px-20 mt-6 px-18 text-4xl font-bold py-2 px-12 bg-[#067E81] text-black border border-black rounded-full"
+              onClick={handleDeleteConfirm}>
               YES
             </button>
             <button
