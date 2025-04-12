@@ -5,7 +5,7 @@ import React, {
   useEffect,
   ReactNode,
 } from 'react';
-import { useData } from '../components/User.ts';
+import { useData } from '../components/User';
 
 export interface Expense {
   id: string;
@@ -22,6 +22,7 @@ interface ExpenseContextType {
   selectedExpense: Expense | null;
   setSelectedExpense: (expense: Expense | null) => void;
   totalAmount: number;
+  deleteExpense: (id: string) => void;
 }
 
 interface ExpenseProviderProps {
@@ -41,10 +42,15 @@ export const ExpenseProvider: React.FC<ExpenseProviderProps> = ({
     if (!user || !user.userId) return;
 
     const storedExpenses = localStorage.getItem(`expenses_${user.userId}`);
-    setExpenses(storedExpenses ? JSON.parse(storedExpenses) : []);
+    if (storedExpenses) {
+      const parsedExpenses = JSON.parse(storedExpenses);
+      setExpenses(parsedExpenses);
+    } else {
+      setExpenses([]);
+    }
   }, [user]);
 
-  function editExpense(updatedExpense: Expense) {
+  const editExpense = (updatedExpense: Expense) => {
     setExpenses((prevExpenses) => {
       const updatedExpenses = prevExpenses.map((exp) =>
         exp.id === updatedExpense.id ? updatedExpense : exp
@@ -59,7 +65,21 @@ export const ExpenseProvider: React.FC<ExpenseProviderProps> = ({
 
       return updatedExpenses;
     });
-  }
+  };
+
+  const deleteExpense = (id: string) => {
+    setExpenses((prevExpenses) =>
+      prevExpenses.filter((expense) => expense.id !== id)
+    );
+
+    if (user?.userId) {
+      const updatedExpenses = expenses.filter((expense) => expense.id !== id);
+      localStorage.setItem(
+        `expenses_${user.userId}`,
+        JSON.stringify(updatedExpenses)
+      );
+    }
+  };
 
   const addExpense = (expense: Expense) => {
     if (!user) return;
@@ -88,6 +108,7 @@ export const ExpenseProvider: React.FC<ExpenseProviderProps> = ({
         selectedExpense,
         setSelectedExpense,
         totalAmount,
+        deleteExpense,
       }}>
       {children}
     </ExpenseContext.Provider>
