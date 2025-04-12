@@ -17,6 +17,7 @@ export function EditExpense() {
   const navigate = useNavigate();
   const [save, setSave] = useState(false);
   const [, setCancel] = useState(false);
+  const [remove, setRemove] = useState(false);
 
   const handlePopUp = () => setPopUp(true);
   const closePopUp = () => setPopUp(false);
@@ -69,6 +70,12 @@ export function EditExpense() {
     setSave(true);
   };
 
+  const handleDelete = () => {
+    if (selectedExpense) {
+      setRemove(true);
+    }
+  };
+
   return (
     <div className="relative flex-grow flex-1 pl-2 px-4">
       <div className="flex items-center space-x-4">
@@ -93,7 +100,7 @@ export function EditExpense() {
       </div>
 
       <div className="absolute right-4 md:right-6 md:top-3 top-2 md:top-[22px]">
-        <button>
+        <button onClick={handleDelete}>
           <svg
             className="md:mt-[2px] mt-[12px] w-[50px] h-[50px] md:w-[60px] md:h-[60px] md:mt-[14px] text-[#01898B]"
             viewBox="0 0 24 24"
@@ -351,6 +358,14 @@ export function EditExpense() {
           </button>
         </div>
       </form>
+
+      {remove && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-10">
+          <div className="rounded-[50px] bg-[#cbcbcb] p-6 px-6 rounded shadow-lg text-center border border-black ">
+            <h2>Delete</h2>
+          </div>
+        </div>
+      )}
 
       {save && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-10">
