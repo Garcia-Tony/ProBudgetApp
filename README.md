@@ -1,3 +1,5 @@
+<img width="1440" alt="Screen Shot 2025-05-12 at 8 04 01 PM" src="https://github.com/user-attachments/assets/ae9f0b83-df1f-4167-b518-19e3c5b199be" />
+
 #  ProBudget 💸
 A full stack web application for individuals who want to track and manage their expenses effectively.
 
